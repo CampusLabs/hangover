@@ -1,0 +1,33 @@
+.js-hangover-container {
+  display: inline-block;
+  position: absolute;
+  z-index: 999;
+}
+
+.js-hangover-container.js-hangover-not-hoverable {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.js-hangover-container > * {
+  position: relative;
+}
+
+.js-hangover-container.js-hangover-left > * {
+  right: 0;
+}
+
+.js-hangover-container.js-hangover-right > * {
+  left: 0;
+}
+
+.js-hangover-container.js-hangover-top > * {
+  bottom: 0;
+}
+
+.js-hangover-container.js-hangover-bottom > * {
+  top: 0;
+}

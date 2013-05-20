@@ -1,0 +1,17 @@
+{
+  "name": "hangover",
+  "version": "0.0.1",
+  "main": "hangover.js",
+  "ignore": [
+    "test",
+    "index.html"
+  ],
+  "dependencies": {
+    "jquery": "x",
+    "underscore": "x"
+  },
+  "devDependencies": {
+    "mocha": "x",
+    "chai": "x"
+  }
+}
