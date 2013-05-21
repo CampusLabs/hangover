@@ -76,33 +76,31 @@
     move: function () {
       var $container = this.$container;
       var $anchor = this.$anchor;
-      var divWidth = $container.outerWidth();
-      var divHeight = $container.outerHeight();
-      var tPosition = $anchor.position();
-      var tLeft = tPosition.left + parseInt($anchor.css('marginLeft'), 10);
-      var tTop = tPosition.top + parseInt($anchor.css('marginTop'), 10);
-      var tWidth = $anchor.outerWidth();
-      var tHeight = $anchor.outerHeight();
+      var cWidth = $container.outerWidth();
+      var cHeight = $container.outerHeight();
+      var aWidth = $anchor.outerWidth();
+      var aHeight = $anchor.outerHeight();
+      var aPosition = $anchor.position();
       var position = {
-        left: tLeft,
-        top: tTop
+        left: aPosition.left + parseInt($anchor.css('marginLeft'), 10),
+        top: aPosition.top + parseInt($anchor.css('marginTop'), 10)
       };
       switch (this.position) {
       case 'top':
-        position.left += (tWidth - divWidth) / 2;
-        position.top -= divHeight;
+        position.left += (aWidth - cWidth) / 2;
+        position.top -= cHeight;
         break;
       case 'right':
-        position.left += tWidth;
-        position.top += (tHeight - divHeight) / 2;
+        position.left += aWidth;
+        position.top += (aHeight - cHeight) / 2;
         break;
       case 'bottom':
-        position.left += (tWidth - divWidth) / 2;
-        position.top += tHeight;
+        position.left += (aWidth - cWidth) / 2;
+        position.top += aHeight;
         break;
       case 'left':
-        position.left -= divWidth;
-        position.top += (tHeight - divHeight) / 2;
+        position.left -= cWidth;
+        position.top += (aHeight - cHeight) / 2;
         break;
       }
       this.$container.css(position);
