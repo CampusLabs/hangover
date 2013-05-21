@@ -11,7 +11,7 @@
       'onMouseover', 'onMouseout', 'onFocus', 'onBlur', 'onClick'
     );
     _.each(['hover', 'focus', 'click'], function (type) {
-      this[type] = !!~this.action.indexOf(type);
+      this[type] = !!~this.trigger.indexOf(type);
     }, this);
     this.hovered = this.focused = this.clicked = false;
     this.buildContainer().setElement(el).setAnchor(anchor);
@@ -22,8 +22,8 @@
     // The position of $el relative to the $anchor.
     position: 'top',
 
-    // Display $el the following actions occur (hover, focus, and/or click).
-    action: 'hover focus',
+    // Display $el the following triggers occur (hover, focus, and/or click).
+    trigger: 'hover focus',
 
     // Preserve $el's listeners and data by using detach instead of remove.
     preserve: false,
