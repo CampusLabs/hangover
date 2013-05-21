@@ -4,14 +4,6 @@
   z-index: 999;
 }
 
-.js-hangover-container.js-hangover-not-hoverable {
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .js-hangover-container > * {
   position: relative;
 }

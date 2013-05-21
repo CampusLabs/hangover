@@ -7,11 +7,14 @@
 
   var Hangover = window.Hangover = function (el, anchor, options) {
     _.extend(this, options);
-    _.bindAll(this, '_mouseover', '_mouseout', '_focus', '_blur', '_click');
-    this.hovered = false;
-    this.focused = false;
-    this.clicked = false;
-    this._buildContainer().setElement(el).setAnchor(anchor);
+    _.bindAll(this,
+      'onMouseover', 'onMouseout', 'onFocus', 'onBlur', 'onClick'
+    );
+    _.each(['hover', 'focus', 'click'], function (type) {
+      this[type] = !!~this.action.indexOf(type);
+    }, this);
+    this.hovered = this.focused = this.clicked = false;
+    this.buildContainer().setElement(el).setAnchor(anchor);
   };
 
   _.extend(Hangover.prototype, {
@@ -19,17 +22,8 @@
     // The position of $el relative to the $anchor.
     position: 'top',
 
-    // If set to true, $el can be hovered over without being hidden.
-    hoverable: false,
-
-    // Display $el when $anchor is hovered.
-    hover: true,
-
-    // Display $el when $anchor gains focus.
-    focus: true,
-
-    // Display $el when $anchor is clicked.
-    click: false,
+    // Display $el the following actions occur (hover, focus, and/or click).
+    action: 'hover focus',
 
     // Preserve $el's listeners and data by using detach instead of remove.
     preserve: false,
@@ -41,7 +35,7 @@
     },
 
     // Set up the $el container.
-    _buildContainer: function () {
+    buildContainer: function () {
       this.$container = $('<div>')
         .addClass('js-hangover-container ' +
           _.map(this.position.split(' '), function (dir) {
@@ -54,20 +48,21 @@
 
     // Set the $anchor property.
     setAnchor: function (anchor) {
+      if (this.$anchor) this.$anchor.css('position', null);
       (this.$anchor = anchor instanceof $ ? anchor : $(anchor)).on({
-        mouseover: this._mouseover,
-        mouseout: this._mouseout,
-        focus: this._focus,
-        blur: this._blur
-      });
-      $(document).click(this._click);
+        mouseover: this.onMouseover,
+        mouseout: this.onMouseout,
+        focus: this.onFocus,
+        blur: this.onBlur
+      }).css('position', 'relative');
+      $(document).click(this.onClick);
       return this;
     },
 
     // Show the $container.
     show: function () {
       this.$anchor.parent().append(this.$container);
-      this._move();
+      this.move();
       return this;
     },
 
@@ -78,17 +73,14 @@
       return this;
     },
 
-    _move: function () {
+    move: function () {
       var $container = this.$container;
       var $anchor = this.$anchor;
-      var $parent = $anchor.parent();
       var divWidth = $container.outerWidth();
       var divHeight = $container.outerHeight();
-      var parentScrollLeft = $parent.scrollLeft();
-      var parentScrollTop = $parent.scrollTop();
       var tPosition = $anchor.position();
-      var tLeft = tPosition.left + parentScrollLeft + parseInt($anchor.css('marginLeft'));
-      var tTop = tPosition.top + parentScrollTop + parseInt($anchor.css('marginTop'));
+      var tLeft = tPosition.left + parseInt($anchor.css('marginLeft'), 10);
+      var tTop = tPosition.top + parseInt($anchor.css('marginTop'), 10);
       var tWidth = $anchor.outerWidth();
       var tHeight = $anchor.outerHeight();
       var position = {
@@ -120,22 +112,22 @@
     destroy: function () {
       this.hide();
       this.$anchor.off({
-        mouseover: this._mouseover,
-        mouseout: this._mouseout,
-        focus: this._focus,
-        blur: this._blur
+        mouseover: this.onMouseover,
+        mouseout: this.onMouseout,
+        focus: this.onFocus,
+        blur: this.onBlur
       });
-      $(document).off(this._click);
+      $(document).off(this.onClick);
       return this;
     },
 
-    _mouseover: function () {
+    onMouseover: function () {
       if (!this.hover) return;
       this.hovered = true;
       this.show();
     },
 
-    _mouseout: function () {
+    onMouseout: function () {
       if (!this.hover) return;
       this.hovered = false;
       if ((!this.click || !this.clicked) &&
@@ -144,13 +136,13 @@
       }
     },
 
-    _focus: function () {
+    onFocus: function () {
       if (!this.focus) return;
       this.focused = true;
       this.show();
     },
 
-    _blur: function () {
+    onBlur: function () {
       if (!this.focus) return;
       this.focused = false;
       if ((!this.click || !this.clicked) &&
@@ -159,7 +151,7 @@
       }
     },
 
-    _click: function (ev) {
+    onClick: function (ev) {
       if (!this.click) return;
       if (!this.clicked) {
         var anchorClicked =

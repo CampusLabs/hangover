@@ -23,17 +23,61 @@
         width: 100px;
         height: 100px;
         background: #f00;
+        margin: 100px;
+        vertical-align: top;
+      }
+      .box-2 {
+        cursor: pointer;
+      }
+      .tooltip {
+
       }
     </style>
   </head>
 
   <body>
     <h1>Hangover Demo</h1>
-    <div class='js-tooltip'>I'm a tooltip</div>
-    <div class='box'></div>
+    <div class='tooltip js-tooltip' data-anchor='.box-1' data-options='{
+      "position": "top"
+    }'>
+      I'm a top tooltip
+    </div>
+    <div class='tooltip js-tooltip' data-anchor='.box-1' data-options='{
+      "position": "right"
+    }'>
+      I'm a right tooltip
+    </div>
+    <div class='tooltip js-tooltip' data-anchor='.box-1' data-options='{
+      "position": "bottom"
+    }'>
+      I'm a bottom tooltip
+    </div>
+    <div class='tooltip js-tooltip' data-anchor='.box-1' data-options='{
+      "position": "left"
+    }'>
+      I'm a left tooltip
+    </div>
+    <div class='tooltip js-tooltip' data-anchor='.box-2' data-options='{
+      "position": "left",
+      "action": "click"
+    }'>
+      I'm a left click tooltip
+    </div>
+    <div class='tooltip js-tooltip' data-anchor='.box-3' data-options='{
+      "position": "top"
+    }'>
+      Inputs are cool too!
+    </div>
+    <div class='box box-1'></div>
+    <div class='box box-2'></div>
+    <input class='box box-3'></input>
     <script>
       (function () {
-        var hangover = new Hangover('.js-tooltip', '.box', {click: true});
+        $('.js-tooltip').each(function () {
+          var $self = $(this);
+          var data = $self.data();
+          new Hangover($self, data.anchor, data.options);
+        });
       })();
     </script>
   </body>
