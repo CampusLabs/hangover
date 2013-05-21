@@ -30,7 +30,47 @@
         cursor: pointer;
       }
       .tooltip {
-
+        margin: 5px;
+        padding: 10px;
+        color: #aaa;
+        background: #333;
+        border-radius: 3px;
+      }
+      .js-hangover-container:before {
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        content: '';
+        border: 5px solid transparent;
+      }
+      .js-hangover-container.js-hangover-left:before {
+        top: 50%;
+        margin-top: -5px;
+        right: 0;
+        border-right-width: 0;
+        border-left-color: #333;
+      }
+      .js-hangover-container.js-hangover-right:before {
+        top: 50%;
+        margin-top: -5px;
+        left: 0;
+        border-left-width: 0;
+        border-right-color: #333;
+      }
+      .js-hangover-container.js-hangover-top:before {
+        left: 50%;
+        margin-left: -5px;
+        bottom: 0;
+        border-bottom-width: 0;
+        border-top-color: #333;
+      }
+      .js-hangover-container.js-hangover-bottom:before {
+        left: 50%;
+        margin-left: -5px;
+        top: 0;
+        border-top-width: 0;
+        border-bottom-color: #333;
       }
     </style>
   </head>
