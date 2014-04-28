@@ -1,11 +1,15 @@
-(function () {
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery', 'underscore'], factory);
+  } else if (typeof exports !== 'undefined') {
+    module.exports = factory(require('jquery'), require('underscore'));
+  } else {
+    root.Hangover = factory(root.jQuery, root._);
+  }
+})(this, function ($, _) {
   'use strict';
 
-  // Store a local reference to jQuery and Underscore.
-  var $ = window.jQuery;
-  var _ = window._;
-
-  var Hangover = window.Hangover = function (el, anchor, options) {
+  var Hangover = function (el, anchor, options) {
     _.extend(this, options);
     _.bindAll(this,
       'onMouseover', 'onMouseout', 'onFocus', 'onBlur', 'onClick'
@@ -168,4 +172,6 @@
       return this.hide();
     }
   });
-})();
+
+  return Hangover;
+});
