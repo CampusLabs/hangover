@@ -103,7 +103,11 @@
         position.top += (aHeight - cHeight) / 2;
         break;
       }
-      this.$container.css(position);
+      $container.css(position);
+      if ($container.outerWidth() !== cWidth ||
+          $container.outerHeight() !== cHeight) {
+        this.move();
+      }
       return this;
     },
 
