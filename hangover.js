@@ -108,8 +108,8 @@
         break;
       }
       $container.css(position);
-      if ($container.outerWidth() !== cWidth ||
-          $container.outerHeight() !== cHeight) {
+      if ($container.outerWidth() > cWidth ||
+          $container.outerHeight() > cHeight) {
         this.move();
       }
       return this;

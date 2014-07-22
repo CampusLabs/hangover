@@ -1,7 +1,10 @@
 {
   "name": "hangover",
-  "version": "0.0.2",
-  "main": "hangover.js",
+  "version": "0.0.3",
+  "main": [
+    "hangover.js",
+    "hangover.css"
+  ],
   "ignore": [
     "test",
     "index.html"
