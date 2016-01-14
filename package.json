@@ -1,0 +1,15 @@
+{
+  "name": "orgsync-hangover",
+  "version": "0.0.3",
+  "author": "Casey Foster <c@sey.me>",
+  "license": "MIT",
+  "main": "hangover.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orgsync/hangover"
+  },
+  "peerDependencies": {
+    "jquery": "x",
+    "underscore": "x"
+  }
+}
